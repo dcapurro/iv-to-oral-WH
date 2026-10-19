@@ -152,9 +152,9 @@ export default function MedicationForm() {
       />
 
       <p className="text-sm text-slate-500 mb-4">
-        Upload the ward audit export (wide format). Only doses flagged{' '}
-        <strong>Switch = Yes</strong> are counted. Use the filters below to scope
-        by unit, ward or date.
+        Upload the REDCap audit export (CSV, labels). Only doses flagged{' '}
+        <strong>Missed Opportunity = Yes</strong> are counted. Use the filters
+        below to scope by campus, unit, ward or date.
       </p>
 
       {importResult && (
@@ -220,7 +220,7 @@ export default function MedicationForm() {
           )}
           {importResult.droppedZeroDose > 0 && (
             <div className="text-xs text-slate-400">
-              {importResult.droppedZeroDose} eligible slot
+              {importResult.droppedZeroDose} missed-opportunity medication
               {importResult.droppedZeroDose === 1 ? '' : 's'} skipped for zero /
               blank dose count.
             </div>

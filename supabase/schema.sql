@@ -29,6 +29,7 @@ create table dose_entries (
   name          text not null,
   switchable    boolean not null default false,
   doses         double precision not null,
+  campus        text default '',
   unit          text default '',
   ward          text default '',
   date_str      text default ''

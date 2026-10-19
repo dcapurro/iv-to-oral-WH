@@ -61,7 +61,7 @@ export function MedicationProvider({ children }) {
   )
 
   // Dose entries (one per eligible audit slot):
-  // { id, medicationId, doses, unit, ward, dateStr }
+  // { id, medicationId, doses, campus, unit, ward, dateStr }
   const [doseEntries, setDoseEntries] = useState(() =>
     isSupabaseConfigured ? [] : loadStored(STORAGE_KEYS.doseEntries, [])
   )
@@ -80,6 +80,7 @@ export function MedicationProvider({ children }) {
   const [auditDays, setAuditDays] = useState(30)
 
   // Filters that scope what the calculator displays.
+  const [selectedCampus, setSelectedCampus] = useState('all')
   const [selectedUnit, setSelectedUnit] = useState('all')
   const [selectedWard, setSelectedWard] = useState('all')
   const [startDate, setStartDate] = useState('') // YYYY-MM-DD, '' = no bound
@@ -159,6 +160,10 @@ export function MedicationProvider({ children }) {
   }, [doseEntries])
 
   // ── Derived filter options ──────────────────────────────────────────────
+  const availableCampuses = useMemo(
+    () => [...new Set(doseEntries.map((e) => e.campus).filter(Boolean))].sort(),
+    [doseEntries]
+  )
   const availableUnits = useMemo(
     () => [...new Set(doseEntries.map((e) => e.unit).filter(Boolean))].sort(),
     [doseEntries]
@@ -178,6 +183,7 @@ export function MedicationProvider({ children }) {
   // in the impact database or not. Drives the audit chart.
   const filteredAuditEntries = useMemo(() => {
     return doseEntries.filter((e) => {
+      if (selectedCampus !== 'all' && e.campus !== selectedCampus) return false
       if (selectedUnit !== 'all' && e.unit !== selectedUnit) return false
       if (selectedWard !== 'all' && e.ward !== selectedWard) return false
       // Undated (manually added) entries always pass the date filter.
@@ -187,7 +193,7 @@ export function MedicationProvider({ children }) {
       }
       return true
     })
-  }, [doseEntries, selectedUnit, selectedWard, startDate, endDate])
+  }, [doseEntries, selectedCampus, selectedUnit, selectedWard, startDate, endDate])
 
   // The subset that actually earns savings: flagged switchable AND costed in
   // the impact database. Everything downstream of the calculator uses this.
@@ -293,6 +299,7 @@ export function MedicationProvider({ children }) {
           name: med ? med.name : medicationId,
           switchable: true, // manual entries are switchable by definition
           doses,
+          campus: '',
           unit: '',
           ward: '',
           dateStr: '',
@@ -307,6 +314,7 @@ export function MedicationProvider({ children }) {
 
   const clearDoseEntries = () => {
     setDoseEntries([])
+    setSelectedCampus('all')
     setSelectedUnit('all')
     setSelectedWard('all')
     setStartDate('')
@@ -373,6 +381,7 @@ export function MedicationProvider({ children }) {
         name,
         switchable: Boolean(entry.switchable),
         doses,
+        campus: entry.campus || '',
         unit: entry.unit || '',
         ward: entry.ward || '',
         dateStr: entry.dateStr || '',
@@ -381,6 +390,7 @@ export function MedicationProvider({ children }) {
 
     setDoseEntries(next)
     // Reset filters to show everything just loaded.
+    setSelectedCampus('all')
     setSelectedUnit('all')
     setSelectedWard('all')
     setStartDate('')
@@ -418,6 +428,8 @@ export function MedicationProvider({ children }) {
     clearDoseEntries,
     importAuditDoses,
     // Filters
+    selectedCampus,
+    setSelectedCampus,
     selectedUnit,
     setSelectedUnit,
     selectedWard,
@@ -426,6 +438,7 @@ export function MedicationProvider({ children }) {
     setStartDate,
     endDate,
     setEndDate,
+    availableCampuses,
     availableUnits,
     availableWards,
     dataDateBounds,

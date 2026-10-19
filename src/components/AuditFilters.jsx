@@ -3,6 +3,8 @@ import { useMedication } from '../context/MedicationContext'
 
 export default function AuditFilters() {
   const {
+    selectedCampus,
+    setSelectedCampus,
     selectedUnit,
     setSelectedUnit,
     selectedWard,
@@ -11,6 +13,7 @@ export default function AuditFilters() {
     setStartDate,
     endDate,
     setEndDate,
+    availableCampuses,
     availableUnits,
     availableWards,
     dataDateBounds,
@@ -18,9 +21,14 @@ export default function AuditFilters() {
 
   const hasData = availableUnits.length > 0 || dataDateBounds
   const filtersActive =
-    selectedUnit !== 'all' || selectedWard !== 'all' || startDate || endDate
+    selectedCampus !== 'all' ||
+    selectedUnit !== 'all' ||
+    selectedWard !== 'all' ||
+    startDate ||
+    endDate
 
   const clearFilters = () => {
+    setSelectedCampus('all')
     setSelectedUnit('all')
     setSelectedWard('all')
     setStartDate('')
@@ -47,13 +55,28 @@ export default function AuditFilters() {
 
       {!hasData && (
         <p className="text-sm text-slate-500">
-          Upload an audit file to filter by unit, ward and date.
+          Upload an audit file to filter by campus, unit, ward and date.
         </p>
       )}
 
       {hasData && (
         <div className="space-y-4">
-          <div className="grid grid-cols-2 gap-3">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+            <div>
+              <label className="block text-sm text-slate-600 mb-1">Campus</label>
+              <select
+                value={selectedCampus}
+                onChange={(e) => setSelectedCampus(e.target.value)}
+                className="input-field"
+              >
+                <option value="all">All campuses</option>
+                {availableCampuses.map((c) => (
+                  <option key={c} value={c}>
+                    {c}
+                  </option>
+                ))}
+              </select>
+            </div>
             <div>
               <label className="block text-sm text-slate-600 mb-1">Unit</label>
               <select

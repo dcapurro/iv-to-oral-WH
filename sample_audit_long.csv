@@ -1,0 +1,11 @@
+Record ID,Repeat Instrument,Repeat Instance,Survey Identifier,Survey Timestamp,Auditor Initials,Audit Date and Time,Audit Phase,Allocated Study ID,Admission Date and Time,Length of Stay,Campus,Ward,Treating Unit,Tolerating Oral Intake,Signs of Severe Illness?,Complete?,Survey Timestamp,Medication Name,If Other Medication,Medication Category,Type of Order,Dose,Frequency,Number of doses,Administration Method,Additional details,Indication,Active Order,Missed Opportunity,Prompt Provided,Other comments,Complete?
+1,,,,,XX,2026-05-04 09:00,Baseline,DEMO001,,,Campus A,4N,General Medicine A,Yes,No,Complete,,,,,,,,,,,,,,,,
+1,IV medication,1,,,,,,,,,,,,,,,,Furosemide,,,Regular,,,2,,,,Yes,Yes,No,,Complete
+1,IV medication,2,,,,,,,,,,,,,,,,Ceftriaxone,,,Regular,,,1,,,,Yes,No,No,,Complete
+2,,,,,XX,2026-05-05 10:15,Baseline,DEMO002,,,Campus A,4N,General Medicine B,Yes,No,Complete,,,,,,,,,,,,,,,,
+2,IV medication,1,,,,,,,,,,,,,,,,Potassium Chloride,,,Regular,,,2,,,,Yes,Yes,No,,Complete
+2,IV medication,2,,,,,,,,,,,,,,,,Other,Ondansetron,,Regular,,,3,,,,Yes,Unable to determine,No,,Complete
+3,,,,,XX,2026-05-06 14:30,Baseline,DEMO003,,,Campus B,2E,Respiratory,Yes,No,Complete,,,,,,,,,,,,,,,,
+3,IV medication,1,,,,,,,,,,,,,,,,Vancomycin,,,Regular,,,2,,,,Yes,Yes,No,,Complete
+3,IV medication,2,,,,,,,,,,,,,,,,Hydrocortisone,,,Regular,,,0,,,,Yes,Yes,No,,Complete
+3,IV medication,3,,,,,,,,,,,,,,,,Cefazolin,,,Regular,,,3,,,,Yes,No,No,,Complete
