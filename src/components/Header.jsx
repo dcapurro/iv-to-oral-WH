@@ -1,4 +1,5 @@
-import { Leaf, Calculator, Settings } from 'lucide-react'
+import { Calculator, Settings } from 'lucide-react'
+import westernHealthLogo from '../assets/western-health-logo.png'
 
 export default function Header({ currentPage, onPageChange }) {
   return (
@@ -6,12 +7,13 @@ export default function Header({ currentPage, onPageChange }) {
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="bg-white/20 p-2 rounded-lg">
-              <Leaf className="w-8 h-8" />
+            {/* White tile: the logo's grey wordmark is unreadable on the green. */}
+            <div className="bg-white px-2 py-1.5 rounded-lg shadow-sm shrink-0">
+              <img src={westernHealthLogo} alt="Western Health" className="h-8 sm:h-11 w-auto" />
             </div>
-            <div>
-              <h1 className="text-xl font-bold">IV to Oral Therapy</h1>
-              <p className="text-primary-100 text-sm">Environmental Savings Calculator · WH</p>
+            <div className="min-w-0">
+              <h1 className="text-lg sm:text-xl font-bold">IV to Oral Therapy</h1>
+              <p className="hidden sm:block text-primary-100 text-sm">Environmental Savings Calculator</p>
             </div>
           </div>
 
